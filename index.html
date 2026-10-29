@@ -18,6 +18,14 @@
       0%, 93%, 100% { transform: scaleY(1); }
       95% { transform: scaleY(0.1); }
     }
+@keyframes talkMouthClosed {
+      0%, 49.9% { opacity: 1; }
+      50%, 100% { opacity: 0; }
+    }
+@keyframes talkMouthOpen {
+      0%, 49.9% { opacity: 0; }
+      50%, 100% { opacity: 1; }
+    }
 @keyframes mascotHop {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-10px); }
@@ -151,27 +159,40 @@
     }
 
 /* ---- MOCKUP: Zwi with a message that keeps changing ---- */
-.zwmock{position:fixed;right:calc(18px + env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));
+.zwmock{position:fixed;right:calc(18px + env(safe-area-inset-right,0px));bottom:calc(78px + env(safe-area-inset-bottom,0px));
   z-index:2147482000;display:flex;flex-direction:column;align-items:flex-end;gap:0;
   font-family:var(--sans,system-ui,sans-serif)}
 .zwmock__z{width:88px;flex:0 0 88px;display:flex;align-items:flex-end;justify-content:center}
-.zwmock__z svg{width:88px;height:100px}
-.zwmock__bubble{position:relative;max-width:min(260px,calc(100vw - 130px));margin-bottom:12px;
-  background:#0D162A;color:#F4F6F8;border:1px solid #2E3A56;border-radius:14px;
-  padding:11px 14px;font-size:15px;font-weight:650;line-height:1.4;
-  box-shadow:0 .7rem 1.6rem rgba(3,12,28,.45);opacity:0;transform:translateY(6px);
-  transition:opacity .3s ease,transform .3s ease}
+.zwmock__z svg{width:88px;height:100px;filter:drop-shadow(0 .6rem 1.1rem rgba(3,12,28,.55))}
+.zwmock__z .mascot .arms-group,.zwmock__z .mascot .brows-group,.zwmock__z .mascot .mouth-part,.zwmock__z .mascot .eyes-group,.zwmock__z .mascot .mascot-legs-cheer{display:none}
+.zwmock__z .mascot .mascot-legs-normal,.zwmock__z .mascot--cheer .arms-cheer,.zwmock__z .mascot--cheer .brows-cheer,.zwmock__z .mascot--cheer .mouth-cheer,.zwmock__z .mascot--cheer .eyes-cheer{display:block}
+.zwmock__z .mascot--cheer .cheer-wave-arm{transform-box:view-box;transform-origin:270px 260px;animation:cheerWave .7s ease-in-out infinite alternate}
+.zwmock__bubble{position:relative;max-width:min(210px,calc(100vw - 120px));margin-bottom:12px;
+  background:#2b64f5;color:#fff;border:1px solid rgba(255,255,255,.22);border-radius:18px;
+  padding:10px 13px;font-size:15.5px;font-weight:700;line-height:1.35;letter-spacing:-.008em;
+  box-shadow:0 1rem 2.2rem rgba(3,12,28,.55);opacity:0;transform:translateY(6px);
+  transition:opacity .2s ease,transform .2s ease;
+  animation:zwmock-pulse 2.6s ease-in-out infinite}
 .zwmock__bubble.is-in{opacity:1;transform:none}
-.zwmock__bubble::after{content:'';position:absolute;right:26px;bottom:-7px;width:12px;height:12px;
-  background:#0D162A;border-right:1px solid #2E3A56;border-bottom:1px solid #2E3A56;transform:rotate(45deg)}
+.zwmock__bubble::after{content:'';position:absolute;right:22px;bottom:-7px;width:12px;height:12px;
+  background:#2b64f5;transform:rotate(45deg)}
+.zwmock__bubble mark{background:#FBBF24;color:#0F172A;font-weight:800;padding:1px 6px;border-radius:7px;
+  -webkit-box-decoration-break:clone;box-decoration-break:clone}
+@keyframes zwmock-pulse{
+  0%,100%{box-shadow:0 1rem 2.2rem rgba(3,12,28,.55),0 0 0 0 rgba(43,100,245,.45)}
+  50%{box-shadow:0 1rem 2.2rem rgba(3,12,28,.55),0 0 0 12px rgba(43,100,245,0)}
+}
+@media (prefers-reduced-motion: reduce){
+  .zwmock__bubble{animation:none;transition:none}
+}
 .zwmock__flag{position:fixed;left:.6rem;bottom:.6rem;z-index:2147483000;background:#0d214e;color:#fff;
   font:800 .68rem/1 var(--sans,system-ui,sans-serif);padding:.4rem .6rem;border-radius:.5rem;
   letter-spacing:.04em;opacity:.92}
 @media (max-width:640px){
-  .zwmock{right:10px;bottom:12px}
+  .zwmock{right:10px;bottom:72px}
   .zwmock__z{width:72px;flex:0 0 72px}
   .zwmock__z svg{width:72px;height:82px}
-  .zwmock__bubble{max-width:min(230px,calc(100vw - 100px));font-size:14px;padding:10px 12px}
+  .zwmock__bubble{max-width:min(200px,calc(100vw - 96px));font-size:15px;padding:9px 12px}
 }
 </style></head> <body class="fun">    <div class="appbar drop live" data-zw-appbar=""> <button type="button" class="appbar-x" data-zw-appbar-x="" aria-label="Hide this for a week"> <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.5 3.5l9 9m0-9l-9 9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg> </button> <img class="appbar-icon" src="https://zwitch.co.uk/img/icons/web-app-manifest-192x192.png" alt="" width="36" height="36" decoding="async"> <div class="appbar-text"> <div class="appbar-top"> <span class="appbar-name">Zwitch app</span> <span class="appbar-chip"><b>3,000+</b> learners</span> </div> <div class="appbar-lines" aria-live="off"> <span class="appbar-line">Replies and alerts live in the app</span> <span class="appbar-line">Thousands did this. Your turn.</span> <span class="appbar-line on">Free. Same account as here.</span> </div> </div> <a class="appbar-get" href="https://zwitch.co.uk/download-app" data-zw-appbar-get="" data-zw-ios="https://apps.apple.com/us/app/zwitch-ltd/id6757639622" data-zw-android="https://play.google.com/store/apps/details?id=com.rm.zwitch&amp;referrer=utm_source%3Dzwitch.co.uk%26utm_medium%3Dwebsite%26utm_campaign%3Ddownload">Get</a> </div>   <button type="button" class="dvsa-strip" data-zw-dvsa-open="" aria-haspopup="dialog"> <span class="dvsa-shield" aria-hidden="true"> <svg width="14" height="16" viewBox="0 0 13 15" fill="none"><path d="M6.5 1.2 11.6 3v4.1c0 3.2-2.1 5.7-5.1 6.7-3-1-5.1-3.5-5.1-6.7V3z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"></path><path d="M4.4 7.4 6 9l2.8-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg> </span> <span class="dvsa-text"><strong>DVSA compliant</strong><span class="dvsa-sep" aria-hidden="true">·</span>learner to learner swaps</span> <span class="dvsa-more" aria-hidden="true">What that means</span> </button> <dialog class="dvsa-sheet" data-zw-dvsa-sheet="" aria-labelledby="dvsaTitle"> <div class="dvsa-sheet-in"> <span class="dvsa-kicker"><span class="dvsa-shield" aria-hidden="true"><svg width="14" height="16" viewBox="0 0 13 15" fill="none"><path d="M6.5 1.2 11.6 3v4.1c0 3.2-2.1 5.7-5.1 6.7-3-1-5.1-3.5-5.1-6.7V3z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"></path><path d="M4.4 7.4 6 9l2.8-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>The rules</span> <h2 id="dvsaTitle">Fully compliant with the new DVSA driving test rules.</h2> <p class="dvsa-lead">Learner to learner test swaps.</p> <ul> <li>You and another learner agree to swap dates.</li> <li>Each of you then changes <strong>your own</strong> booking on the DVSA site. Nobody books on your behalf.</li> <li>No cancellation hunting, no bots, no third party bookings. The things the 2026 rules stopped.</li> </ul> <button type="button" class="dvsa-close" data-zw-dvsa-close="">Got it</button> </div> </dialog>   <main> <main class="landing-page"> <!-- Auto-ported hero from ZwitchHeroDrivingTestSwap_5. Fully namespaced
      under .zwhero / .zw-* so it cannot collide with the site's global
@@ -676,7 +697,7 @@ GOOGLE PLAY
         </svg>
       </span> <div class="zwchat__ident"> <strong>Zwi Bot</strong> <span>Zwitch assistant · Finds swaps. You send the request.</span> </div>  <button type="button" data-zwchat-close="" aria-label="Close"> <svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"> <path d="M3.5 3.5l9 9m0-9l-9 9" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"></path> </svg> </button> </header> <div class="zwchat__log" data-zwchat-log="" role="log" aria-live="polite"></div> <form class="zwchat__form" data-zwchat-form=""> <label class="zwchat__sr" for="zwchat-input">Your message</label>  <textarea id="zwchat-input" data-zwchat-input="" maxlength="200" rows="1" dir="auto" autocomplete="off" placeholder="Centre, date, sooner or later…"></textarea> <button type="submit" data-zwchat-send="" aria-label="Send" disabled=""> <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"> <path d="M20 12L4 4l6 8-6 8 16-8Z" fill="currentColor"></path> </svg> </button> </form> </section>   </div>        
 <div class="zwmock">
-  <div class="zwmock__bubble" id="zwmock-bubble" role="status"></div>
+  <div class="zwmock__bubble is-in" id="zwmock-bubble" role="status">Hi, I'm <mark>Zwi</mark>.</div>
   <div class="zwmock__z" aria-hidden="true">
         <svg class="mascot mascot--cheer " viewBox="0 0 471.13 574.43" aria-hidden="true">
           <defs>
@@ -912,28 +933,27 @@ GOOGLE PLAY
 
 <script>
 (function () {
-  /* The site's own words for the nudge, so what he approves here is what the
-     site says. The live widget changes them every 6 seconds; here they change
-     every 3, so the change is obvious without waiting. */
+  /* Plainer words for the nudge, so what he approves here is what the
+     site will say. The live widget changes them every 6 seconds; here they change
+     every 4 seconds, so the change is obvious without waiting. */
   var LINES = [
-    "I'm here! I'm here!",
-    "Want an earlier test? Tap me.",
-    "I'll find you a better date.",
-    "Need a later test? I can look."
+    "Hi, I'm <mark>Zwi</mark>.",
+    "Tell me your <mark>test date</mark>.",
+    "Want an <mark>earlier test</mark>?",
+    "I'll find a <mark>swap</mark> for you."
   ];
   var b = document.getElementById('zwmock-bubble');
   if (!b) return;
-  var i = 0;
+  var i = 1;
   function show() {
     b.classList.remove('is-in');
     setTimeout(function () {
-      b.textContent = LINES[i % LINES.length];
+      b.innerHTML = LINES[i % LINES.length];
       i++;
       b.classList.add('is-in');
-    }, 260);
+    }, 200);
   }
-  show();
-  setInterval(show, 3000);
+  setInterval(show, 4000);
 })();
 </script>
 </body></html>
